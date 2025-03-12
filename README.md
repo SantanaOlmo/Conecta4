@@ -1,4 +1,4 @@
-##CONNECT 4
+## CONNECT 4
 
 The actual "strategy" is actually rather complex and involves exhaustive search at points to deal with tactics, so it's not practical to use by hand.
 
@@ -6,7 +6,7 @@ On the other hand, the strategic insights and some general-purpose rules are eas
 
 **Background**
 
-Let's start by quickly reviewing connect-4. The game is played on a 6 × 7 board; we can label each row with a number and each column with a letter:
+Let's start by quickly reviewing connect-4. The game is played on a 6 × 7 board; we can label each row with a number and each gcolumn with a letter:
 
 ![](https://qph.cf2.quoracdn.net/main-qimg-b812b227ce84ac42c596f5d62661aea5)
 
