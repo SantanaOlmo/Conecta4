@@ -8,7 +8,7 @@ public class Ventana extends JFrame {
     int anchoVentana = 700;
     int altoVentana = 700;
     int numDificultad=0;
-    boolean
+    boolean playerVsIA;
 
     public Ventana() {
         setTitle("Conecta4");
@@ -16,7 +16,7 @@ public class Ventana extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // CARGA LA PANTALLA DE INICIO
+        // CARGA LA PANTALLA DE INICIO"
         mostrarPantallaInicio();
         setVisible(true);
     }
@@ -31,7 +31,7 @@ public class Ventana extends JFrame {
 
     public void iniciarJuego(int numDificultad) {
         getContentPane().removeAll(); // 🔹 Limpiar la ventana
-        Juego juego = new Juego(this,numDificultad,playerVsIA);
+        Juego juego = new Juego(this,numDificultad);
         setContentPane(juego);
         revalidate();
         repaint();
@@ -47,8 +47,18 @@ public class Ventana extends JFrame {
         Musica.playSound("minuetto.wav","minuetto.wav");
         numDificultad=0;
         iniciarJuego(numDificultad);
-
     }
+    public void iniciarJuegoVsIA(){
+        Musica.stopSound();
+        //Musica.playSound();
+
+        getContentPane().removeAll(); //
+        Juego juego = new Juego(this,playerVsIA);
+        setContentPane(juego);
+        revalidate();
+        repaint();
+    }
+
     public void mostrarPantallaFinal(){
         Musica.stopSound();
         getContentPane().removeAll();

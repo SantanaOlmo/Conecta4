@@ -10,6 +10,7 @@ public class Logic {
 
     static int contadorDeFichas=0;
 
+    // este metodo añade fichas en la partida de JUGADOR VS JUGADOR
     public static void anadirFicha(int[][] partida, int columna, Juego juego, int color, JLabel[][] fichas, ImageIcon fichaRoja, ImageIcon fichaAmarilla, Ventana ventana) {
 
         if (juego.getnumDificultad()==1){
@@ -24,11 +25,6 @@ public class Logic {
                 //coloco la ficha en el hueco vacío más bajo
                 partida[i][columna] = color;
 
-            if (juego.playerVsIA){
-                //esto es para pasarle a la ia cuál ha sido el ultimo movimiento realizado por el jugador
-                int ultimoMovimientodelJugadorFila=i;
-                int ultimoMovimientodelJugador=columna;
-            }
 
                 if (color == 2) {
                     fichas[i][columna].setIcon(fichaRoja);
@@ -44,7 +40,55 @@ public class Logic {
 
         juego.setPartida(partida);
 
-        if(buscarGanador(partida,color,juego)){
+        if(buscarGanador(color,juego)){
+            contadorDeFichas=0;
+            ventana.mostrarPantallaFinal();
+        }else{
+            contadorDeFichas+=1;
+            cambiarTurno(juego);
+            juego.mostrarTurno();
+        }
+        mostrarMatriz(juego.getPartida());
+
+        if(contadorDeFichas==42){
+            contadorDeFichas=0;
+            ventana.mostrarPantallaEmpate();
+        }
+
+
+    }
+
+    // PLAYER VS IA
+    public static void JugadoranadirFicha(int[][] partida, int columna, Juego juego, int color, JLabel[][] fichas, ImageIcon fichaRoja, ImageIcon fichaAmarilla, Ventana ventana) {
+
+        if (juego.getnumDificultad()==1){
+            Musica.playSound("metalPipe.wav","MetalPipe.wav");
+        } else if (juego.getnumDificultad()==0) {
+            Musica.playSound("click.wav","click.wav");
+        }
+
+        // Recorro la columna de abajo hacia arriba buscando una casilla vacía (0)
+        for (int i = 5; i >= 0; i--) {
+            if (partida[i][columna] == 0) {
+                //coloco la ficha en el hueco vacío más bajo
+                partida[i][columna] = color;
+
+
+                if (color == 2) {
+                    fichas[i][columna].setIcon(fichaRoja);
+                } else {
+                    fichas[i][columna].setIcon(fichaAmarilla);
+                }
+                fichas[i][columna].setVisible(true);
+
+                break;
+            }
+        }
+
+
+        juego.setPartida(partida);
+
+        if(buscarGanador(color,juego)){
             contadorDeFichas=0;
             ventana.mostrarPantallaFinal();
         }else{
@@ -63,7 +107,8 @@ public class Logic {
     }
 
 
-    public static boolean buscarGanador(int[][] partida, int color,Juego juego){
+
+    public static boolean buscarGanador( int color,Juego juego){
         for (int i=0; i<7;i ++){
             for(int j=0;j<6;j++){
                 if(cuatroEnRayaHorizontal(color,i,j ,juego)||cuatroEnRayaVertical(color,i,j,juego)||cuatroEnRayaDiagonalAscendente(color,i,j,juego)||cuatroEnRayaDiagonalDescendente(color,i,j,juego)){
@@ -73,7 +118,6 @@ public class Logic {
         }
         return false;
     }
-
     public static boolean cuatroEnRayaHorizontal(int color,int columna,int fila ,Juego juego){
         //aquí me llega una ficha , por eso contador=1
         //de esa ficha cuento las siguientes 3 posiciones en linea horizontal a ver si son del mismo color
@@ -166,7 +210,6 @@ public class Logic {
         }
 
     }
-
     public static void mostrarMatriz(int [][] partida){
         for (int i=0;i<6;i++){
             for (int j=0;j<7;j++){
@@ -177,8 +220,6 @@ public class Logic {
         System.out.println("-------------------------");
         System.out.println("contador de fichas ="+contadorDeFichas);
     }
-
-
     public static void cambiarTurno(Juego juego){
         if (juego.getTurno()==1){
             juego.setTurno(2);
