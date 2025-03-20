@@ -22,16 +22,18 @@ public class Juego extends JPanel {
     int cColumna1 = 0, cColumna2 = 0, cColumna3 = 0, cColumna4 = 0, cColumna5 = 0, cColumna0 = 0, cColumna6 = 0; // contadores de las fichas que hay en cada columna
     int VACIO = 0;
     Image fondo = Imagen.imagenDepurada("fondoBlanco", "fondoBlanco.png");
-    ImageIcon tablero = Imagen.imageIconDepurada("tablero", "tablero.png");
-    ImageIcon fichaAmarilla=Imagen.imageIconDepurada("fichaAmarillaCuadrada.png","fichaAmarillaCuadrada.png");
-    ImageIcon fichaRoja = Imagen.imageIconDepurada("fichaRojaCuadrada.png","fichaRojaCuadrada.png");
+    ImageIcon tablero;
+    ImageIcon fichaAmarilla, fichaRoja;
 
     //JUGADOR VS JUGADOR
     public Juego(Ventana ventana,int Dificultad) {
         this.setLayout(null);
         this.numDificultad=Dificultad;
+        setTablero(numDificultad);
+        setFichas(numDificultad);
+
         //inicializo el jlabel del turno
-        mostrarTurno();
+        mostrarTurno(ventana);
         imgTurno.setFont(new Font("Arial",Font.BOLD,25));
         imgTurno.setBounds(290,580,150,100);
         imgTurno.setVisible(true);
@@ -94,9 +96,7 @@ public class Juego extends JPanel {
         columna6.addActionListener(e -> {
             if (cColumna6 == 6) {
                 mostrarMensajeError(6);
-            } else {
-                Logic.anadirFicha(partida, 6, this, turno,fichas,fichaRoja,fichaAmarilla,ventana);
-            }
+            }else {Logic.anadirFicha(partida, 6, this, turno,fichas,fichaRoja,fichaAmarilla,ventana);}
         });
         columna0.addActionListener(e -> {
             if (cColumna0 == 6) {
@@ -105,8 +105,6 @@ public class Juego extends JPanel {
                 Logic.anadirFicha(partida, 0, this, turno,fichas,fichaRoja,fichaAmarilla,ventana);
             }
         });
-
-
 
 
         //CREO EL TABLERO Y LO PINTO SOBRE LAS FICHAS
@@ -142,7 +140,7 @@ public class Juego extends JPanel {
         this.setLayout(null);
 
         //inicializo el jlabel del turno
-        mostrarTurno();
+        mostrarTurno(ventana);
         imgTurno.setFont(new Font("Arial",Font.BOLD,25));
         imgTurno.setBounds(290,580,150,100);
         imgTurno.setVisible(true);
@@ -259,7 +257,7 @@ public class Juego extends JPanel {
         columna.setBorder(BorderFactory.createEmptyBorder());
 
         // HOVER SOBRE LOS BOTONES
-        columna.addMouseListener(new MouseAdapter() {
+        /*columna.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 columna.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Borde visible en hover
@@ -269,7 +267,7 @@ public class Juego extends JPanel {
             public void mouseExited(MouseEvent e) {
                 columna.setBorder(BorderFactory.createEmptyBorder()); // Borde invisible cuando el mouse sale
             }
-        });
+        });*/
     }
 
 
@@ -305,18 +303,35 @@ public class Juego extends JPanel {
 
     }
 
-    public void mostrarTurno(){
+    public void mostrarTurno(Ventana ventana){
         if(turno==1){
             imgTurno.setText("YOUR TURN");
             imgTurno.setForeground(Color.YELLOW);
+            ventana.setIconImage(Imagen.imagenDepurada("fichaAmarilla.png","fichaAmarilla.png"));
         }else{
             imgTurno.setText("YOUR TURN");
             imgTurno.setForeground(Color.RED);
+            ventana.setIconImage(Imagen.imagenDepurada("fichaRoja.png","fichaRoja.png"));
 
         }
     }
     public int getnumDificultad(){
         return this.numDificultad;
     }
-
+    public void setTablero (int numDificultad){
+        if (numDificultad==0){
+            this.tablero=Imagen.imageIconDepurada("tablero", "tablero.png");
+        }else{
+            this.tablero=Imagen.imageIconDepurada("tableroInferrnal", "tableroInfierno.png");
+        }
+    }
+    public void setFichas(int numDificultad){
+        if (numDificultad==0){
+            this.fichaAmarilla=Imagen.imageIconDepurada("fichaAmarillaCuadrada.png","fichaAmarillaCuadrada.png");
+            this.fichaRoja = Imagen.imageIconDepurada("fichaRojaCuadrada.png","fichaRojaCuadrada.png");
+        }else{
+            this.fichaAmarilla=Imagen.imageIconDepurada("fichaHitler.png","fichaHitler.png");
+            this.fichaRoja = Imagen.imageIconDepurada("fichaJesucristo.png","fichaJesucristo.png");
+        }
+    }
 }

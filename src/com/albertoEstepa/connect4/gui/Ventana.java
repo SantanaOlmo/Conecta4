@@ -1,5 +1,6 @@
 package com.albertoEstepa.connect4.gui;
 
+import com.albertoEstepa.connect4.depurar.Imagen;
 import com.albertoEstepa.connect4.depurar.Musica;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ public class Ventana extends JFrame {
         setSize(anchoVentana, altoVentana);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setIconImage(Imagen.imagenDepurada("fichaAmarilla.png","fichaAmarilla.png"));
 
         // CARGA LA PANTALLA DE INICIO"
         mostrarPantallaInicio();
@@ -38,13 +40,13 @@ public class Ventana extends JFrame {
     }
     public void iniciarJuegoDificil(){
         Musica.stopSound();
-        Musica.playSound("rainingBlood.wav","rainingBlood.wav");
+        Musica.playSound("theHereticAnthem.wav","theHereticAnthem.wav");
         numDificultad=1;
         iniciarJuego(numDificultad);
     }
     public void iniciarJuegoFacil(){
         Musica.stopSound();
-        Musica.playSound("minuetto.wav","minuetto.wav");
+        Musica.playSound("marriedLife.wav","marriedLife.wav");
         numDificultad=0;
         iniciarJuego(numDificultad);
     }
@@ -60,6 +62,7 @@ public class Ventana extends JFrame {
     }
 
     public void mostrarPantallaFinal(){
+
         Musica.stopSound();
         getContentPane().removeAll();
         VentanaFinal ventanaFinal= new VentanaFinal(this);

@@ -46,7 +46,7 @@ public class Logic {
         }else{
             contadorDeFichas+=1;
             cambiarTurno(juego);
-            juego.mostrarTurno();
+            juego.mostrarTurno(ventana);
         }
         mostrarMatriz(juego.getPartida());
 
@@ -94,7 +94,7 @@ public class Logic {
         }else{
             contadorDeFichas+=1;
             cambiarTurno(juego);
-            juego.mostrarTurno();
+            juego.mostrarTurno(ventana);
         }
         mostrarMatriz(juego.getPartida());
 
